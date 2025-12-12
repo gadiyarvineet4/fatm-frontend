@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SearchBox } from './components/SearchBox';
 import { ResultsGrid } from './components/ResultsGrid';
+import { LPNote } from './components/LPNote';
 import { searchMovies } from './utils/api';
 import type { SearchResponse } from './types';
 
@@ -38,21 +39,26 @@ function App() {
 
         <header className={`relative z-10 text-center space-y-4 px-4 transition-all duration-700 ${searchResults ? 'mb-8 scale-90' : 'mb-16'}`}>
           <h1
-            className="text-4xl md:text-7xl font-bold tracking-tight text-fatm-black cursor-pointer hover:opacity-80 transition-opacity"
+            className="text-4xl md:text-7xl font-serif font-bold tracking-tight text-fatm-charcoal cursor-pointer hover:opacity-80 transition-opacity"
             onClick={() => setSearchResults(null)}
           >
             FOREVER AT THE MOVIES
           </h1>
           {!searchResults && (
-            <p className="text-gray-500 font-light text-xl tracking-widest uppercase animate-fade-in-up [animation-delay:100ms]">
+            <p className="text-gray-600 font-light text-xl tracking-widest uppercase animate-fade-in-up [animation-delay:100ms]">
               Curated Cinema Collection
             </p>
           )}
+          <p className="text-xs text-gray-400 font-mono italic mt-2 opacity-60">
+            (work in progress)
+          </p>
         </header>
 
         <main className={`relative z-10 w-full max-w-2xl mx-auto px-4 transition-all duration-500 ${searchResults ? '' : 'animate-fade-in-up [animation-delay:200ms]'}`}>
           <SearchBox onSearch={handleSearch} isLoading={loading} />
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+
+          {!searchResults && <LPNote />}
         </main>
 
       </div>

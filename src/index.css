@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-fatm-cream text-fatm-black font-sans antialiased;
+    @apply bg-fatm-cream text-fatm-charcoal font-sans antialiased;
   }
 }
