@@ -5,15 +5,12 @@ export const LPNote: React.FC = () => {
         <div className="mt-16 mb-16 max-w-3xl mx-auto px-6 text-center animate-fade-in-up [animation-delay:300ms]">
             <div className="relative border-t border-b border-fatm-charcoal/10 py-12 space-y-10">
 
-                {/* Quote Section */}
+                {/* Quote Section Removed */}
                 <div className="space-y-4">
                     <h2 className="text-sm font-sans tracking-widest uppercase text-fatm-accent opacity-80">
                         How This Works
                     </h2>
-                    <blockquote className="font-serif text-2xl md:text-3xl italic text-fatm-charcoal leading-relaxed">
-                        “Movies are the memories of our life time, we need to keep them alive.”
-                    </blockquote>
-                    <p className="text-xs font-mono uppercase tracking-wider text-gray-500">— Martin Scorcese</p>
+                    {/* Quote moved to EntryPage */}
                 </div>
 
                 {/* Our Belief */}
