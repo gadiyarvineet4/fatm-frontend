@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface SearchBoxProps {
     onSearch: (query: string) => void;
     isLoading?: boolean;
+    value: string;
+    onChange: (value: string) => void;
 }
 
-export const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, isLoading }) => {
-    const [query, setQuery] = useState('');
-
+export const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, isLoading, value, onChange }) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && query.trim()) {
-            onSearch(query);
+        if (e.key === 'Enter' && value.trim()) {
+            onSearch(value);
         }
     };
 
@@ -31,8 +31,8 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, isLoading }) => 
                     type="text"
                     id="search"
                     placeholder="In the mood for..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
                     onKeyDown={handleKeyDown}
                     disabled={isLoading}
                 />

@@ -9,6 +9,7 @@ function App() {
   const [searchResults, setSearchResults] = useState<SearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
 
   const handleSearch = async (query: string) => {
     if (!query.trim()) return;
@@ -40,7 +41,10 @@ function App() {
         <header className={`relative z-10 text-center space-y-4 px-4 transition-all duration-700 ${searchResults ? 'mb-8 scale-90' : 'mb-16'}`}>
           <h1
             className="text-4xl md:text-7xl font-serif font-bold tracking-tight text-fatm-charcoal cursor-pointer hover:opacity-80 transition-opacity"
-            onClick={() => setSearchResults(null)}
+            onClick={() => {
+              setSearchResults(null);
+              setQuery('');
+            }}
           >
             FOREVER AT THE MOVIES
           </h1>
@@ -55,7 +59,7 @@ function App() {
         </header>
 
         <main className={`relative z-10 w-full max-w-2xl mx-auto px-4 transition-all duration-500 ${searchResults ? '' : 'animate-fade-in-up [animation-delay:200ms]'}`}>
-          <SearchBox onSearch={handleSearch} isLoading={loading} />
+          <SearchBox onSearch={handleSearch} isLoading={loading} value={query} onChange={setQuery} />
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
           {!searchResults && <LPNote />}
