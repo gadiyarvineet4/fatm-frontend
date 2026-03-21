@@ -1,28 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Movie } from '../types';
-import { getPoster } from '../utils/posterLoader';
 
 interface MovieCardProps {
     movie: Movie;
+    posterUrl: string | null;
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
-    const posterSrc = getPoster([movie.movie_poster, movie.title]);
+export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl }) => {
+    const [imgError, setImgError] = useState(false);
 
     return (
         <div className="group relative h-full flex flex-col transition-all duration-300 hover:z-30">
             <div className="relative overflow-hidden bg-gray-100 rounded-lg shadow-sm transition-all duration-500 group-hover:shadow-2xl shrink-0">
-                <div className="aspect-[2/3] w-full overflow-hidden">
-                    <img
-                        src={posterSrc}
-                        alt={`Poster for ${movie.title}`}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        onError={(e) => {
-                            if ((e.target as HTMLImageElement).src !== 'https://placehold.co/400x600?text=No+Poster') {
-                                (e.target as HTMLImageElement).src = 'https://placehold.co/400x600?text=No+Poster';
-                            }
-                        }}
-                    />
+                <div className="aspect-[2/3] w-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                    {posterUrl && !imgError ? (
+                        <img
+                            src={posterUrl}
+                            alt={movie.poster_details || `Poster for ${movie.title}`}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            onError={() => setImgError(true)}
+                        />
+                    ) : (
+                        <div className="p-4 text-center">
+                            <span className="text-gray-400 font-serif font-bold text-lg leading-tight uppercase tracking-wider">{movie.title}</span>
+                            <span className="block text-xs text-gray-400 mt-2">No Poster Available</span>
+                        </div>
+                    )}
                 </div>
 
                 {/* Gradient Overlay */}

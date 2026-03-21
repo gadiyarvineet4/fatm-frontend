@@ -5,7 +5,7 @@ export interface Movie {
     cast: string;
     quote: string;
     trigger_warning: string;
-    movie_poster: string;
+    poster_details: string;
 }
 
 export interface SearchResponse {
