@@ -21,7 +21,9 @@ export const searchMovies = async (query: string) => {
             throw new Error('Network response was not ok');
         }
 
-        return await response.json();
+        const data = await response.json();
+        console.log('[API Search] Backend response data:', data);
+        return data;
     } catch (error) {
         console.error('Error searching movies:', error);
         throw error;
