@@ -1,6 +1,6 @@
 export const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
-export const searchMovies = async (query: string) => {
+export const searchMovies = async (query: string, timezone?: string) => {
     try {
         console.log(`[Search] Request started for query: "${query}" at ${new Date().toISOString()}`);
         const startTime = performance.now();
@@ -10,7 +10,10 @@ export const searchMovies = async (query: string) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ input_text: query }),
+            body: JSON.stringify({ 
+                input_text: query,
+                timezone: timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
+            }),
         });
 
         const endTime = performance.now();

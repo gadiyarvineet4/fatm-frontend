@@ -68,6 +68,25 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl }) => {
                     </p>
                 </div>
 
+                {/* Streaming Platforms */}
+                <div className="pt-2 space-y-2">
+                    <p className="text-[10px] uppercase tracking-widest text-gray-300 font-mono">Streaming</p>
+                    <div className="flex flex-wrap gap-1.5">
+                        {movie.streaming && movie.streaming.length > 0 ? (
+                            movie.streaming.map((platform) => (
+                                <span 
+                                    key={platform}
+                                    className="px-2 py-0.5 bg-gray-50 text-gray-500 text-[10px] font-medium rounded border border-gray-100/50 hover:bg-white hover:border-gray-200 transition-colors duration-200"
+                                >
+                                    {platform}
+                                </span>
+                            ))
+                        ) : (
+                            <span className="text-[10px] text-gray-400 italic font-serif">Check local availability</span>
+                        )}
+                    </div>
+                </div>
+
                 {/* Trigger Warning Detail - Absolute position to prevent layout shift */}
                 {movie.trigger_warning && (
                     <div className="absolute left-0 right-0 -bottom-2 translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 bg-rose-50 border border-rose-100 p-3 rounded-md shadow-lg z-20 mx-2 pointer-events-none group-hover:pointer-events-auto">
