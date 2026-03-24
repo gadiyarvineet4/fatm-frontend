@@ -6,6 +6,7 @@ export interface Movie {
     quote: string;
     trigger_warning: string;
     poster_details: string;
+    streaming?: string[];
 }
 
 export interface SearchResponse {

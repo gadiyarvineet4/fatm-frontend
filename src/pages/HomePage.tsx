@@ -12,19 +12,39 @@ export function HomePage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [query, setQuery] = useState('');
+    const [refreshCount, setRefreshCount] = useState(0);
 
-    const handleSearch = async (query: string) => {
-        if (!query.trim()) return;
+    const handleSearch = async (searchQuery: string) => {
+        if (!searchQuery.trim()) return;
 
         setLoading(true);
         setError(null);
         setSearchResults(null);
+        setRefreshCount(0); // Reset count on new search
 
         try {
-            // In a real app, query would be passed to backend which performs the search
-            // For now we trust the backend returns the structure we defined
-            const data = await searchMovies(query);
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const data = await searchMovies(searchQuery, timezone);
             setSearchResults(data);
+        } catch (err) {
+            console.error(err);
+            setError('Something went wrong. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleRefresh = async () => {
+        if (refreshCount >= 2 || !query.trim()) return;
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const data = await searchMovies(query, timezone);
+            setSearchResults(data);
+            setRefreshCount(prev => prev + 1);
         } catch (err) {
             console.error(err);
             setError('Something went wrong. Please try again.');
@@ -75,8 +95,34 @@ export function HomePage() {
             </div>
 
             {searchResults && (
-                <div className="flex-1 w-full bg-gradient-to-t from-fatm-cream via-fatm-cream/90 to-transparent">
+                <div className="flex-1 w-full bg-gradient-to-t from-fatm-cream via-fatm-cream/90 to-transparent pb-20">
                     <ResultsGrid query={searchResults.input_text} movies={searchResults.recommendations} />
+                    
+                    <div className="max-w-2xl mx-auto px-4 mt-8 mb-12 text-center">
+                        {refreshCount < 2 ? (
+                            <button
+                                onClick={handleRefresh}
+                                disabled={loading}
+                                className="group flex items-center justify-center gap-2 mx-auto px-6 py-3 bg-white border border-gray-200 text-fatm-charcoal rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50"
+                            >
+                                <svg 
+                                    className={`w-4 h-4 text-gray-400 group-hover:text-fatm-charcoal transition-colors ${loading ? 'animate-spin' : ''}`} 
+                                    fill="none" 
+                                    viewBox="0 0 24 24" 
+                                    stroke="currentColor"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                <span className="text-sm font-medium tracking-wide uppercase font-mono">
+                                    {loading ? 'Refreshing...' : 'Give me more'}
+                                </span>
+                            </button>
+                        ) : (
+                            <p className="text-sm text-gray-500 font-serif italic animate-fade-in">
+                                We've shown you 12 films. Try watching the first 10 minutes of any of these.
+                            </p>
+                        )}
+                    </div>
                 </div>
             )}
 
