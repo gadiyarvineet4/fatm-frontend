@@ -24,20 +24,6 @@ export const LPNote: React.FC = () => {
                     </p>
                 </div>
 
-                {/* Divider */}
-                <div className="w-16 h-px bg-fatm-charcoal/20 mx-auto"></div>
-
-                {/* Upcoming */}
-                <div className="space-y-4">
-                    <h3 className="font-serif text-lg font-bold text-fatm-charcoal mb-2">Upcoming Features</h3>
-                    <ul className="text-sm text-fatm-charcoal/70 space-y-2 font-light list-none">
-                        <li>1. Refined suggestions & technical improvements.</li>
-                        <li>2. Streaming platform availability based on location.</li>
-                        <li>3. User accounts to save movies and more.</li>
-                        <li>4. High quality posters displayed along with the titles.</li>
-                    </ul>
-                </div>
-
                 {/* Contact */}
                 <div className="pt-8 border-t border-dashed border-fatm-charcoal/10">
                     <p className="text-xs text-gray-400 font-mono">
