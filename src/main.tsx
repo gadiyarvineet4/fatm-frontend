@@ -6,6 +6,8 @@ import App from './App.tsx'
 
 inject()
 
+console.log('[App] Mounting application...');
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
