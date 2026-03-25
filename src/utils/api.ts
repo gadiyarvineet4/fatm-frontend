@@ -25,7 +25,6 @@ export const searchMovies = async (query: string, timezone?: string) => {
         }
 
         const data = await response.json();
-        console.log('[API Search] Backend response data:', data);
         return data;
     } catch (error) {
         console.error('Error searching movies:', error);

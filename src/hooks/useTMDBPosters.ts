@@ -27,7 +27,6 @@ export function useTMDBPosters(movies: Movie[]): TMDBPostersResult {
             }
 
             const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-            console.log('[TMDB Search] API Key detected:', apiKey ? 'Present (starts with ' + apiKey.substring(0, 4) + '...)' : 'MISSING');
 
             if (!apiKey) {
                 console.warn('[TMDB Search] VITE_TMDB_API_KEY is not set in environment variables');
@@ -45,17 +44,13 @@ export function useTMDBPosters(movies: Movie[]): TMDBPostersResult {
                 const url = `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${apiKey}`;
 
                 try {
-                    console.log(`[TMDB Search] Fetching poster for: "${movie.title}"`);
                     const response = await fetch(url);
                     const data = await response.json();
-                    console.log(`[TMDB Search] Response for "${movie.title}":`, data);
 
                     if (data.results && data.results.length > 0 && data.results[0].poster_path) {
                         const posterUrl = `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`;
-                        console.log(`[TMDB Search] Found poster for "${movie.title}": ${posterUrl}`);
                         newPosters[movie.title] = posterUrl;
                     } else {
-                        console.log(`[TMDB Search] No poster found for "${movie.title}"`);
                         newPosters[movie.title] = null;
                     }
                 } catch (error) {
