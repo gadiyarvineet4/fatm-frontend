@@ -80,13 +80,41 @@ export function HomePage() {
                             Curated Cinema Collection
                         </p>
                     )}
-                    <p className="text-xs text-gray-400 font-mono italic mt-2 opacity-60">
-                        (work in progress)
-                    </p>
                 </header>
 
-                <main className={`relative z-10 w-full max-w-2xl mx-auto px-4 transition-all duration-500 ${searchResults ? '' : 'animate-fade-in-up [animation-delay:200ms]'}`}>
-                    <SearchBox onSearch={handleSearch} isLoading={loading} value={query} onChange={setQuery} />
+                <main className={`relative z-10 w-full max-w-3xl mx-auto px-4 transition-all duration-500 ${searchResults ? '' : 'animate-fade-in-up [animation-delay:200ms]'}`}>
+                    <div className="flex flex-col sm:flex-row items-stretch gap-3">
+                        <div className="flex-1">
+                            <SearchBox onSearch={handleSearch} isLoading={loading} value={query} onChange={setQuery} />
+                        </div>
+                        
+                        {/* Refresh button masked for now per user request */}
+                        {false && searchResults && refreshCount < 2 && (
+                            <button
+                                onClick={handleRefresh}
+                                disabled={loading}
+                                className="h-14 px-8 bg-white border border-gray-200 text-fatm-charcoal rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-sm hover:shadow-lg disabled:opacity-50 flex items-center justify-center gap-3 animate-fade-in group min-w-[140px]"
+                            >
+                                <div className="flex items-center gap-2">
+                                    <svg 
+                                        className={`w-4 h-4 text-gray-400 group-hover:text-fatm-charcoal transition-colors ${loading ? 'animate-spin' : ''}`} 
+                                        fill="none" 
+                                        viewBox="0 0 24 24" 
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                    <span className="text-xs font-bold tracking-[0.2em] uppercase font-mono">
+                                        {loading ? "..." : "MORE"}
+                                    </span>
+                                </div>
+                                <span className="px-2 py-0.5 bg-gray-100 text-gray-500 text-[10px] font-bold rounded-md font-mono group-hover:bg-fatm-charcoal group-hover:text-white transition-colors">
+                                    {2 - refreshCount}/2
+                                </span>
+                            </button>
+                        )}
+                    </div>
+
                     {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
                     {!searchResults && <LPNote />}
@@ -98,31 +126,13 @@ export function HomePage() {
                 <div className="flex-1 w-full bg-gradient-to-t from-fatm-cream via-fatm-cream/90 to-transparent pb-20">
                     <ResultsGrid query={searchResults.input_text} movies={searchResults.recommendations} />
                     
-                    <div className="max-w-2xl mx-auto px-4 mt-8 mb-12 text-center">
-                        {refreshCount < 2 ? (
-                            <button
-                                onClick={handleRefresh}
-                                disabled={loading}
-                                className="group flex items-center justify-center gap-2 mx-auto px-6 py-3 bg-white border border-gray-200 text-fatm-charcoal rounded-full hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-sm hover:shadow-md disabled:opacity-50"
-                            >
-                                <svg 
-                                    className={`w-4 h-4 text-gray-400 group-hover:text-fatm-charcoal transition-colors ${loading ? 'animate-spin' : ''}`} 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke="currentColor"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                </svg>
-                                <span className="text-sm font-medium tracking-wide uppercase font-mono">
-                                    {loading ? 'Refreshing...' : 'Give me more'}
-                                </span>
-                            </button>
-                        ) : (
-                            <p className="text-sm text-gray-500 font-serif italic animate-fade-in">
+                    {refreshCount >= 2 && (
+                        <div className="max-w-2xl mx-auto px-4 mt-8 mb-12 text-center">
+                            <p className="text-sm text-gray-500 font-serif italic animate-fade-in border-t border-gray-100 pt-8 mt-8">
                                 We've shown you 12 films. Try watching the first 10 minutes of any of these.
                             </p>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             )}
 

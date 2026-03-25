@@ -12,7 +12,7 @@ export const ResultsGrid: React.FC<ResultsGridProps> = ({ query, movies }) => {
     const { posters, isLoading } = useTMDBPosters(movies);
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 py-8 animate-fade-in-up">
+        <div className="w-full max-w-7xl mx-auto px-4 pt-8 pb-32 animate-fade-in-up">
             <div className="mb-12 text-center">
                 <p className="text-sm text-gray-400 uppercase tracking-widest mb-2">You asked for</p>
                 <h2 className="text-2xl md:text-3xl font-serif italic text-gray-800">"{query}"</h2>
