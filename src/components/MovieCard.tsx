@@ -10,7 +10,12 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl }) => {
     const [imgError, setImgError] = useState(false);
 
     return (
-        <div className="group relative h-full flex flex-col transition-all duration-300 hover:z-30">
+        <a 
+            href={`https://www.google.com/search?q=${encodeURIComponent(movie.title + ' movie')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative h-full flex flex-col transition-all duration-300 hover:z-30 cursor-pointer block"
+        >
             <div className="relative overflow-hidden bg-gray-100 rounded-lg shadow-sm transition-all duration-500 group-hover:shadow-2xl shrink-0">
                 <div className="aspect-[2/3] w-full overflow-hidden bg-gray-200 flex items-center justify-center">
                     {posterUrl && !imgError ? (
@@ -85,7 +90,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl }) => {
                     </p>
                 </div>
 
-                <div className="pt-3 space-y-2 border-t border-gray-100">
+                <div className="hidden pt-3 space-y-2 border-t border-gray-100">
                     <p className="text-[9px] uppercase tracking-[0.2em] text-amber-500 font-bold">Watch on</p>
                     <div className="flex flex-wrap gap-1.5">
                         {movie.streaming && movie.streaming.length > 0 ? (
@@ -103,7 +108,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     );
 };
 
