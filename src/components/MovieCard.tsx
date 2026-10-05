@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { Movie } from '../types';
+import { trackMovieClick } from '../utils/analytics';
 
 interface MovieCardProps {
     movie: Movie;
@@ -125,7 +126,8 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl, index = 
                         href={trailerUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded bg-gray-100 hover:bg-fatm-charcoal text-gray-600 hover:text-white transition-colors duration-200 flex items-center gap-1 text-[10px] uppercase tracking-wider font-semibold"
+                        onClick={() => trackMovieClick(movie.title, 'trailer')}
+                        className="px-2.5 py-1 rounded bg-gray-100 hover:bg-fatm-charcoal text-gray-600 hover:text-white transition-colors duration-200 flex items-center gap-1 text-[10px] uppercase tracking-wider font-semibold cursor-pointer"
                         title="Watch trailer on YouTube"
                     >
                         <span>▶</span> Trailer
@@ -135,7 +137,8 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl, index = 
                         href={letterboxdUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded bg-gray-100 hover:bg-[#20272F] text-gray-600 hover:text-[#00e054] transition-colors duration-200 text-[10px] uppercase tracking-wider font-semibold"
+                        onClick={() => trackMovieClick(movie.title, 'letterboxd')}
+                        className="px-2.5 py-1 rounded bg-gray-100 hover:bg-[#20272F] text-gray-600 hover:text-[#00e054] transition-colors duration-200 text-[10px] uppercase tracking-wider font-semibold cursor-pointer"
                         title="View on Letterboxd"
                     >
                         Letterboxd
@@ -145,7 +148,8 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie, posterUrl, index = 
                         href={googleSearchUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded bg-gray-100 hover:bg-fatm-charcoal text-gray-600 hover:text-white transition-colors duration-200 text-[10px] uppercase tracking-wider font-semibold"
+                        onClick={() => trackMovieClick(movie.title, 'google')}
+                        className="px-2.5 py-1 rounded bg-gray-100 hover:bg-fatm-charcoal text-gray-600 hover:text-white transition-colors duration-200 text-[10px] uppercase tracking-wider font-semibold cursor-pointer"
                         title="Search details on Google"
                     >
                         Info ↗

@@ -6,6 +6,7 @@ import { ProfileSection } from '../components/ProfileSection';
 import { MoodPills } from '../components/MoodPills';
 import { LoadingView } from '../components/LoadingView';
 import { searchMovies } from '../utils/api';
+import { trackSearch, trackRefresh } from '../utils/analytics';
 import type { SearchResponse } from '../types';
 
 export function HomePage() {
@@ -18,6 +19,7 @@ export function HomePage() {
         const trimmed = searchQuery.trim();
         if (!trimmed) return;
 
+        trackSearch(trimmed);
         setLoading(true);
         setError(null);
         setSearchResults(null);
@@ -38,6 +40,7 @@ export function HomePage() {
         const targetQuery = (query.trim() || searchResults?.input_text || '').trim();
         if (!targetQuery) return;
 
+        trackRefresh(targetQuery);
         setLoading(true);
         setError(null);
 
