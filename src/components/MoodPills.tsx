@@ -24,9 +24,9 @@ export const MoodPills: React.FC<MoodPillsProps> = ({ onSelectMood, disabled }) 
                         type="button"
                         onClick={() => onSelectMood(mood.label)}
                         disabled={disabled}
-                        className="px-3.5 py-1.5 rounded-full bg-white/60 hover:bg-white text-fatm-charcoal/80 hover:text-fatm-charcoal text-xs font-serif italic border border-gray-200/80 hover:border-gray-400/80 hover:shadow-sm transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-full bg-white/70 hover:bg-white text-gray-700 hover:text-fatm-charcoal text-xs font-sans font-medium border border-gray-200 hover:border-gray-400/70 hover:shadow-sm transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
-                        “{mood.label}”
+                        {mood.label}
                     </button>
                 ))}
             </div>
